@@ -7,7 +7,7 @@ public class ballBehavior : MonoBehaviour
 {
     [SerializeField]GameObject dropShadow;
     Rigidbody rb;
-    bool beingJuggled;
+    [SerializeField] bool beingJuggled;
     public UnityEvent ballDropped;
 
     // Start is called before the first frame update
@@ -44,8 +44,9 @@ public class ballBehavior : MonoBehaviour
         if (beingJuggled)
         {
             ballDropped.Invoke();
-            Destroy(gameObject);
         }
+
+        Destroy(transform.parent.gameObject);
     }
 
 
