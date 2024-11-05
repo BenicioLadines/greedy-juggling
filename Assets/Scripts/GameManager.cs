@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,7 +49,19 @@ public class GameManager : MonoBehaviour
     public void LoseHealth()
     {
         currentHealth--;
+        UpdateHealthUI(currentHealth);
         Debug.Log(currentHealth);
+    }
+
+    void UpdateHealthUI(int newHealth)
+    {
+        for(int i = 0; i < health.Count; i++)
+        {
+            if(i > currentHealth - 1)
+            {
+                health[i].color = Color.gray;
+            }
+        }
     }
 
     void PauseGame()
