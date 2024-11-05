@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     {
         if(currentHealth <= 0)
         {
-            GameOver();
+            GameOver(true);
         }
 
         spawnTimer += Time.deltaTime;
@@ -64,24 +64,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void PauseGame()
+    public void PauseGame(bool enabled)
     {
-        pauseOverlay.SetActive(true);
-        pauseUI.SetActive(true);
+        pauseOverlay.SetActive(enabled);
+        pauseUI.SetActive(enabled);
     }
 
-    void GameOver()
+    public void GameOver(bool enabled)
     {
-        pauseOverlay.SetActive(true);
-        gameOverUI.SetActive(true);
+        pauseOverlay.SetActive(enabled);
+        gameOverUI.SetActive(enabled);
     }
 
     void AddBall()
     {
         GameObject ball = Instantiate(ballPrefab, transform.position,Quaternion.identity);
-        if(ball.TryGetComponent<ballBehavior>(out ballBehavior newBall))
+        if(ball.GetComponentInChildren<ballBehavior>() != null)
         {
-            newBall.ballDropped.AddListener(LoseHealth);
+            ball.GetComponentInChildren<ballBehavior>().ballDropped.AddListener(LoseHealth);
+            
         }
     }
 }
